@@ -1,1 +1,7 @@
-{}
+{
+  "macos": 1,
+  "automation": 1,
+  "clawdbot": 1,
+  "moltbot": 1,
+  "tutorial": 1
+}

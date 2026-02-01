@@ -1,0 +1,8 @@
+<svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shadow -->
+  <path d="M6 4L19 14L11.5 15.5L8.5 23L6 4Z" fill="rgba(0,0,0,0.2)" transform="translate(1, 1)"/>
+  <!-- White fill -->
+  <path d="M6 4L19 14L11.5 15.5L8.5 23L6 4Z" fill="white"/>
+  <!-- Black outline -->
+  <path d="M6 4L19 14L11.5 15.5L8.5 23L6 4Z" stroke="black" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+</svg>

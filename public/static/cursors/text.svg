@@ -1,0 +1,12 @@
+<svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shadow -->
+  <line x1="11" y1="4" x2="11" y2="24" stroke="rgba(0,0,0,0.2)" stroke-width="2.5"/>
+  <!-- Main I-beam -->
+  <line x1="10" y1="4" x2="10" y2="24" stroke="black" stroke-width="1.8"/>
+  <!-- Top bar -->
+  <line x1="6" y1="4" x2="14" y2="4" stroke="black" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Bottom bar -->
+  <line x1="6" y1="24" x2="14" y2="24" stroke="black" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- White highlights -->
+  <line x1="9.5" y1="4.5" x2="9.5" y2="23.5" stroke="white" stroke-width="0.8"/>
+</svg>
