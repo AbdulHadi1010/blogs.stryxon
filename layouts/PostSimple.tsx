@@ -48,7 +48,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
               <div className="border-b border-gray-200 pb-4 dark:border-gray-700">
                 <Link
                   href="/blog"
-                  className="text-sm text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 text-sm"
                 >
                   ← Back to Blog
                 </Link>
@@ -57,7 +57,9 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
           </header>
           <div className="pb-8">
             <div>
-              <div className="prose dark:prose-invert mx-auto max-w-none pt-10 pb-8">{children}</div>
+              <div className="prose dark:prose-invert mx-auto max-w-none pt-10 pb-8">
+                {children}
+              </div>
             </div>
             {siteMetadata.comments && (
               <div className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300" id="comment">
