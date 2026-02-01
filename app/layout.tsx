@@ -75,10 +75,10 @@ export const metadata: Metadata = {
   verification: {
     // Add your verification codes after setting up in search consoles
     // google: 'YOUR_GOOGLE_VERIFICATION_CODE',
-    // other: {
-    //   'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
-    //   'yandex-verification': 'YOUR_YANDEX_CODE',
-    // },
+    other: {
+      // 'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
+      'yandex-verification': '0425af58e4fc7a5f',
+    },
   },
 }
 
