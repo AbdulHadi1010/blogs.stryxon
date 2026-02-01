@@ -1,0 +1,256 @@
+---
+title: How to Install ClawdBot (Moltbot) on macOS
+date: 2026-02-01
+tags:
+  - macos
+  - automation
+  - clawdbot
+  - moltbot
+  - tutorial
+draft: false
+summary: A comprehensive guide to installing and setting up ClawdBot (Moltbot) on macOS, including prerequisites, installation steps, and troubleshooting tips.
+authors:
+  - default
+---
+
+# How to Install ClawdBot (Moltbot) on macOS
+
+ClawdBot (also known as Moltbot) is a powerful automation bot that helps streamline your workflow on macOS. This guide will walk you through the complete installation process, from prerequisites to verification.
+
+## Prerequisites
+
+Before installing ClawdBot, ensure your system meets the following requirements:
+
+- macOS 11 (Big Sur) or later
+- Python 3.8 or higher
+- Homebrew package manager
+- At least 2GB of free disk space
+- Administrator access to your Mac
+
+## Step 1: Install Homebrew (If Not Already Installed)
+
+Homebrew is the package manager we'll use to install dependencies. If you don't have it installed, open Terminal and run:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+After installation, verify Homebrew is working:
+
+```bash
+brew --version
+```
+
+## Step 2: Install Python 3
+
+While macOS comes with Python, we recommend installing the latest version via Homebrew:
+
+```bash
+brew install python3
+```
+
+Verify the installation:
+
+```bash
+python3 --version
+```
+
+You should see Python 3.8 or higher.
+
+## Step 3: Install Required Dependencies
+
+ClawdBot requires several system dependencies. Install them using Homebrew:
+
+```bash
+brew install git curl wget openssl
+```
+
+## Step 4: Clone the ClawdBot Repository
+
+Navigate to your desired installation directory and clone the repository:
+
+```bash
+cd ~/Documents
+git clone https://github.com/clawdbot/moltbot.git
+cd moltbot
+```
+
+> Note: Replace the repository URL with the actual ClawdBot/Moltbot repository if different.
+
+## Step 5: Create a Virtual Environment
+
+It's best practice to use a virtual environment for Python projects:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Your terminal prompt should now show `(venv)` indicating the virtual environment is active.
+
+## Step 6: Install ClawdBot
+
+With the virtual environment activated, install ClawdBot and its dependencies:
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+If ClawdBot is available on PyPI, you can alternatively install it directly:
+
+```bash
+pip install clawdbot
+```
+
+## Step 7: Configure ClawdBot
+
+Create a configuration file in your home directory:
+
+```bash
+mkdir -p ~/.clawdbot
+cp config.example.yml ~/.clawdbot/config.yml
+```
+
+Edit the configuration file with your preferred text editor:
+
+```bash
+nano ~/.clawdbot/config.yml
+```
+
+Update the following settings:
+- API keys (if required)
+- Bot preferences
+- Automation triggers
+- Notification settings
+
+## Step 8: Verify Installation
+
+Test that ClawdBot is properly installed:
+
+```bash
+clawdbot --version
+```
+
+Run a test command to ensure everything works:
+
+```bash
+clawdbot test
+```
+
+## Step 9: Set Up Auto-Start (Optional)
+
+To have ClawdBot start automatically when you log in, create a launch agent:
+
+```bash
+mkdir -p ~/Library/LaunchAgents
+nano ~/Library/LaunchAgents/com.clawdbot.plist
+```
+
+Add the following content (adjust paths as needed):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.clawdbot</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/YOUR_USERNAME/Documents/moltbot/venv/bin/clawdbot</string>
+        <string>start</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
+```
+
+Load the launch agent:
+
+```bash
+launchctl load ~/Library/LaunchAgents/com.clawdbot.plist
+```
+
+## Troubleshooting
+
+### Issue: Python Command Not Found
+
+If `python3` is not recognized, add it to your PATH:
+
+```bash
+echo 'export PATH="/usr/local/opt/python/libexec/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Issue: Permission Denied Errors
+
+Some operations might require elevated permissions:
+
+```bash
+sudo chown -R $(whoami) ~/Documents/moltbot
+```
+
+### Issue: SSL Certificate Errors
+
+If you encounter SSL errors, update your certificates:
+
+```bash
+pip install --upgrade certifi
+/Applications/Python\ 3.*/Install\ Certificates.command
+```
+
+### Issue: Dependencies Conflict
+
+If you have dependency conflicts, try creating a fresh virtual environment:
+
+```bash
+deactivate
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Updating ClawdBot
+
+To update ClawdBot to the latest version:
+
+```bash
+cd ~/Documents/moltbot
+git pull origin main
+source venv/bin/activate
+pip install --upgrade -r requirements.txt
+```
+
+## Uninstalling ClawdBot
+
+If you need to uninstall ClawdBot:
+
+1. Deactivate and remove the virtual environment:
+```bash
+deactivate
+rm -rf ~/Documents/moltbot
+```
+
+2. Remove configuration files:
+```bash
+rm -rf ~/.clawdbot
+```
+
+3. Remove the launch agent (if configured):
+```bash
+launchctl unload ~/Library/LaunchAgents/com.clawdbot.plist
+rm ~/Library/LaunchAgents/com.clawdbot.plist
+```
+
+## Conclusion
+
+You now have ClawdBot (Moltbot) successfully installed and configured on your macOS system. Explore the official documentation to learn about advanced features and automation capabilities.
+
+For support and community discussions, join the ClawdBot Discord server or check out the GitHub Issues page.
+
+Happy automating!

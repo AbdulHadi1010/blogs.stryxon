@@ -27,7 +27,7 @@ public/sitemap.xml
 
 # search
 /public/search.json
-
+.env*
 # misc
 .DS_Store
 

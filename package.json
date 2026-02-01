@@ -1,6 +1,6 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
-  "version": "2.4.0",
+  "name": "stryxon-blogs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "next dev",
@@ -8,8 +8,7 @@
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
-    "prepare": "husky"
+    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
@@ -50,8 +49,12 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.16.0",
     "@svgr/webpack": "^8.0.1",
-    "@types/mdx": "^2.0.12",
-    "@types/react": "^19.0.8",
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/mdx": "^2.0.13",
+    "@types/react": "^19.2.10",
+    "@types/resolve": "^1.20.6",
+    "@types/unist": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^8.12.0",
     "@typescript-eslint/parser": "^8.12.0",
     "cross-env": "^7.0.3",
@@ -73,6 +76,5 @@
     "*.+(js|jsx|ts|tsx|json|css|md|mdx)": [
       "prettier --write"
     ]
-  },
-  "packageManager": "yarn@3.6.1"
+  }
 }
