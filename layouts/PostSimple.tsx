@@ -9,6 +9,7 @@ import SectionContainer from '@/components/SectionContainer'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import Image from '@/components/Image'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -18,7 +19,7 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
-  const { path, slug, date, title, tags } = content
+  const { path, slug, date, title, tags, images } = content
 
   return (
     <SectionContainer>
@@ -55,6 +56,17 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
               </div>
             </div>
           </header>
+          {images && images.length > 0 && (
+            <div className="mb-8">
+              <Image
+                src={images[0]}
+                alt={title}
+                width={800}
+                height={400}
+                className="rounded-lg object-cover"
+              />
+            </div>
+          )}
           <div className="pb-8">
             <div>
               <div className="prose dark:prose-invert mx-auto max-w-none pt-10 pb-8">

@@ -9,6 +9,7 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
+import Image from '@/components/Image'
 
 interface PaginationProps {
   totalPages: number
@@ -126,7 +127,7 @@ export default function ListLayoutWithTags({
           <div>
             <ul>
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags } = post
+                const { path, date, title, summary, tags, images } = post
                 return (
                   <li key={path} className="py-5">
                     <article className="flex flex-col space-y-2 xl:space-y-0">
@@ -151,6 +152,17 @@ export default function ListLayoutWithTags({
                             ))}
                           </div>
                         </div>
+                        {images && images.length > 0 && (
+                          <Link href={`/${path}`}>
+                            <Image
+                              src={images[0]}
+                              alt={title}
+                              width={600}
+                              height={300}
+                              className="rounded-lg object-cover"
+                            />
+                          </Link>
+                        )}
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
                           {summary}
                         </div>
