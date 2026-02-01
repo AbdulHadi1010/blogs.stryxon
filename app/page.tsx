@@ -4,6 +4,9 @@ import Main from './Main'
 
 export default async function Page() {
   const sortedPosts = sortPosts(allBlogs)
-  const posts = allCoreContent(sortedPosts)
+  const posts = sortedPosts.map((post) => ({
+    ...allCoreContent([post])[0],
+    images: post.images,
+  }))
   return <Main posts={posts} />
 }

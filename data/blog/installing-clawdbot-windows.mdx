@@ -1,0 +1,451 @@
+---
+title: How to Install ClawdBot (Moltbot) on Windows
+date: 2026-02-01
+tags:
+  - windows
+  - automation
+  - clawdbot
+  - moltbot
+  - tutorial
+  - powershell
+draft: false
+summary: A comprehensive step-by-step guide to installing and setting up ClawdBot (Moltbot) on Windows 10 and Windows 11. Learn how to install Python, configure the bot, set up auto-start with Task Scheduler, and troubleshoot common Windows-specific issues.
+authors:
+  - default
+images: ['https://www.geo.tv/assets/uploads/updates/2026-01-30/647975_3848645_updates.jpg']
+canonicalUrl: https://blog.stryxon.com/blog/installing-clawdbot-windows
+---
+
+# How to Install ClawdBot (Moltbot) on Windows
+
+ClawdBot (also known as Moltbot) is a powerful automation bot that helps streamline your workflow on Windows. This comprehensive guide will walk you through the complete installation process on Windows 10 and Windows 11, from prerequisites to advanced configuration.
+
+## Prerequisites
+
+Before installing ClawdBot, ensure your system meets the following requirements:
+
+- Windows 10 (version 1909 or later) or Windows 11
+- Python 3.8 or higher
+- Git for Windows
+- At least 2GB of free disk space
+- Administrator access for system-wide installation
+- PowerShell 5.1 or later (included in Windows 10/11)
+
+## Step 1: Install Python for Windows
+
+Download and install Python from the official website:
+
+1. Visit [python.org/downloads](https://www.python.org/downloads/)
+2. Download Python 3.11 or later (64-bit version recommended)
+3. Run the installer
+
+**Important:** During installation, make sure to check:
+- ✅ **"Add Python to PATH"** (very important!)
+- ✅ **"Install pip"**
+
+<Image 
+  src="/static/images/python-windows-install.jpg" 
+  alt="Python Windows installation with PATH option" 
+  width={800} 
+  height={500}
+  className="rounded-lg shadow-lg"
+/>
+
+Verify the installation by opening PowerShell and running:
+
+```powershell
+python --version
+pip --version
+```
+
+If you see version numbers, Python is correctly installed.
+
+## Step 2: Install Git for Windows
+
+ClawdBot requires Git to download and update the repository.
+
+1. Download Git from [git-scm.com](https://git-scm.com/download/win)
+2. Run the installer with default options
+3. Choose "Git from the command line and also from 3rd-party software"
+
+Verify Git installation:
+
+```powershell
+git --version
+```
+
+## Step 3: Install Visual C++ Build Tools (If Needed)
+
+Some Python packages require compilation tools. Install Visual C++ Build Tools:
+
+1. Download from [visualstudio.microsoft.com](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+2. Run the installer
+3. Select "Desktop development with C++"
+4. Click Install (this may take 10-15 minutes)
+
+Alternatively, for a lighter installation:
+
+```powershell
+# Using Chocolatey (if installed)
+choco install visualcpp-build-tools -y
+```
+
+## Step 4: Clone the ClawdBot Repository
+
+Open PowerShell and navigate to your desired installation directory:
+
+```powershell
+cd $HOME\Documents
+git clone https://github.com/clawdbot/moltbot.git
+cd moltbot
+```
+
+> Note: Replace the repository URL with the actual ClawdBot/Moltbot repository if different.
+
+## Step 5: Create a Virtual Environment
+
+It's best practice to use a virtual environment for Python projects:
+
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+If you encounter an execution policy error:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+.\venv\Scripts\Activate.ps1
+```
+
+Your prompt should now show `(venv)` indicating the virtual environment is active.
+
+<Image 
+  src="/static/images/powershell-venv.jpg" 
+  alt="PowerShell with activated virtual environment" 
+  width={800} 
+  height={400}
+  className="rounded-lg shadow-lg"
+/>
+
+## Step 6: Install ClawdBot
+
+With the virtual environment activated, install ClawdBot and its dependencies:
+
+```powershell
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+If ClawdBot is available on PyPI:
+
+```powershell
+pip install clawdbot
+```
+
+## Step 7: Configure ClawdBot
+
+Create a configuration directory:
+
+```powershell
+New-Item -ItemType Directory -Force -Path "$HOME\.clawdbot"
+Copy-Item config.example.yml "$HOME\.clawdbot\config.yml"
+```
+
+Edit the configuration file with Notepad or your preferred editor:
+
+```powershell
+notepad "$HOME\.clawdbot\config.yml"
+```
+
+Update the following settings:
+- API keys (if required)
+- Bot preferences and automation rules
+- Notification settings
+- Log file locations (use Windows paths like `C:\Users\YourName\...`)
+
+## Step 8: Verify Installation
+
+Test that ClawdBot is properly installed:
+
+```powershell
+clawdbot --version
+```
+
+Run a test command:
+
+```powershell
+clawdbot test
+```
+
+## Step 9: Set Up Auto-Start with Task Scheduler
+
+To have ClawdBot start automatically when you log in, create a scheduled task:
+
+### Method 1: Using Task Scheduler GUI
+
+1. Press `Win + R`, type `taskschd.msc`, and press Enter
+2. Click "Create Task" in the right panel
+3. **General Tab:**
+   - Name: `ClawdBot`
+   - Description: `Runs ClawdBot automation service`
+   - Check "Run whether user is logged on or not"
+   - Check "Run with highest privileges"
+
+4. **Triggers Tab:**
+   - Click "New"
+   - Begin the task: "At log on"
+   - Specific user: Your username
+   - Click OK
+
+5. **Actions Tab:**
+   - Click "New"
+   - Action: "Start a program"
+   - Program: `C:\Users\YourName\Documents\moltbot\venv\Scripts\python.exe`
+   - Arguments: `-m clawdbot start`
+   - Start in: `C:\Users\YourName\Documents\moltbot`
+   - Click OK
+
+6. **Conditions Tab:**
+   - Uncheck "Start the task only if the computer is on AC power"
+
+7. Click OK to save the task
+
+### Method 2: Using PowerShell
+
+Create a scheduled task with PowerShell:
+
+```powershell
+$action = New-ScheduledTaskAction -Execute "$HOME\Documents\moltbot\venv\Scripts\python.exe" `
+  -Argument "-m clawdbot start" `
+  -WorkingDirectory "$HOME\Documents\moltbot"
+
+$trigger = New-ScheduledTaskTrigger -AtLogOn
+
+$principal = New-ScheduledTaskPrincipal -UserId "$env:USERNAME" -LogonType Interactive -RunLevel Highest
+
+$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+
+Register-ScheduledTask -TaskName "ClawdBot" `
+  -Action $action `
+  -Trigger $trigger `
+  -Principal $principal `
+  -Settings $settings `
+  -Description "ClawdBot Automation Service"
+```
+
+## Step 10: Configure Windows Firewall (If Needed)
+
+If ClawdBot requires network access, add a firewall rule:
+
+```powershell
+New-NetFirewallRule -DisplayName "ClawdBot" `
+  -Direction Inbound `
+  -Protocol TCP `
+  -LocalPort 8080 `
+  -Action Allow
+```
+
+## Troubleshooting
+
+### Issue: "Python is not recognized"
+
+If Windows can't find Python:
+
+1. Search for "Environment Variables" in Windows
+2. Click "Environment Variables"
+3. Under "System Variables", find "Path"
+4. Click "Edit" and add:
+   - `C:\Users\YourName\AppData\Local\Programs\Python\Python311\`
+   - `C:\Users\YourName\AppData\Local\Programs\Python\Python311\Scripts\`
+
+Restart PowerShell after making changes.
+
+### Issue: PowerShell Execution Policy Error
+
+If you can't activate the virtual environment:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Issue: SSL Certificate Errors
+
+If you encounter SSL errors:
+
+```powershell
+pip install --upgrade certifi
+python -m certifi
+```
+
+### Issue: Module Not Found
+
+Ensure your virtual environment is activated:
+
+```powershell
+cd $HOME\Documents\moltbot
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+### Issue: Permission Denied
+
+Run PowerShell as Administrator:
+1. Right-click PowerShell icon
+2. Select "Run as Administrator"
+3. Navigate to your ClawdBot directory and retry
+
+### Issue: Long Path Error
+
+Windows has a 260-character path limit. Enable long paths:
+
+```powershell
+# Run as Administrator
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
+  -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+```
+
+Restart your computer for changes to take effect.
+
+### Issue: Antivirus Blocking ClawdBot
+
+Some antivirus software may flag Python scripts. Add an exception:
+
+**Windows Defender:**
+1. Open Windows Security
+2. Go to "Virus & threat protection"
+3. Click "Manage settings"
+4. Scroll to "Exclusions" and click "Add or remove exclusions"
+5. Add folder: `C:\Users\YourName\Documents\moltbot`
+
+### Issue: Dependencies Compilation Fails
+
+If pip fails to build packages:
+
+```powershell
+# Install pre-compiled wheels
+pip install --only-binary :all: package-name
+
+# Or install Visual C++ Build Tools as mentioned in Step 3
+```
+
+## Updating ClawdBot
+
+To update ClawdBot to the latest version:
+
+```powershell
+cd $HOME\Documents\moltbot
+.\venv\Scripts\Activate.ps1
+git pull origin main
+pip install --upgrade -r requirements.txt
+```
+
+If using Task Scheduler, the scheduled task will automatically use the updated version.
+
+## Uninstalling ClawdBot
+
+If you need to uninstall ClawdBot:
+
+1. Stop any running ClawdBot processes:
+```powershell
+Get-Process python | Where-Object {$_.Path -like "*moltbot*"} | Stop-Process
+```
+
+2. Remove the scheduled task:
+```powershell
+Unregister-ScheduledTask -TaskName "ClawdBot" -Confirm:$false
+```
+
+3. Remove the installation directory:
+```powershell
+Remove-Item -Recurse -Force "$HOME\Documents\moltbot"
+```
+
+4. Remove configuration files:
+```powershell
+Remove-Item -Recurse -Force "$HOME\.clawdbot"
+```
+
+5. (Optional) Uninstall Python if not needed elsewhere
+
+## Running ClawdBot Manually
+
+To run ClawdBot manually instead of auto-start:
+
+```powershell
+cd $HOME\Documents\moltbot
+.\venv\Scripts\Activate.ps1
+clawdbot start
+```
+
+To run in the background:
+
+```powershell
+Start-Process -NoNewWindow -FilePath "$HOME\Documents\moltbot\venv\Scripts\python.exe" `
+  -ArgumentList "-m clawdbot start"
+```
+
+## Advanced Configuration
+
+### Running as a Windows Service
+
+For production environments, run ClawdBot as a Windows Service using NSSM (Non-Sucking Service Manager):
+
+```powershell
+# Download NSSM
+Invoke-WebRequest -Uri "https://nssm.cc/release/nssm-2.24.zip" -OutFile "$HOME\Downloads\nssm.zip"
+Expand-Archive "$HOME\Downloads\nssm.zip" -DestinationPath "$HOME\Downloads\nssm"
+
+# Install service
+.\nssm.exe install ClawdBot "$HOME\Documents\moltbot\venv\Scripts\python.exe" "-m clawdbot start"
+.\nssm.exe set ClawdBot AppDirectory "$HOME\Documents\moltbot"
+.\nssm.exe start ClawdBot
+```
+
+### Setting Up Logging
+
+Configure ClawdBot to log to a file:
+
+```yaml
+# In config.yml
+logging:
+  level: INFO
+  file: C:\Users\YourName\Documents\moltbot\logs\clawdbot.log
+```
+
+View logs:
+
+```powershell
+Get-Content "$HOME\Documents\moltbot\logs\clawdbot.log" -Wait -Tail 50
+```
+
+## Using Windows Terminal
+
+For a better experience, consider using Windows Terminal:
+
+1. Install from Microsoft Store
+2. Configure PowerShell profile:
+```powershell
+notepad $PROFILE
+```
+
+3. Add ClawdBot alias:
+```powershell
+function Start-ClawdBot {
+    cd "$HOME\Documents\moltbot"
+    .\venv\Scripts\Activate.ps1
+    clawdbot start
+}
+Set-Alias clawdbot Start-ClawdBot
+```
+
+## Conclusion
+
+You now have ClawdBot (Moltbot) successfully installed and configured on your Windows system. The bot is set to start automatically on login and will help automate your daily workflows.
+
+For further assistance:
+- Official documentation: [docs.clawdbot.io](https://docs.clawdbot.io)
+- Windows-specific issues: GitHub Issues
+- Community support: Discord server
+
+Enjoy automated productivity on Windows!

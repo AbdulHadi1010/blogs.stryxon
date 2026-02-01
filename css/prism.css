@@ -17,12 +17,24 @@
 }
 
 /* Code block styles */
+pre[class*="language-"] {
+  @apply rounded-lg border-2 border-gray-200 bg-gray-100/50 dark:border-gray-700 dark:bg-gray-800/50;
+  backdrop-filter: blur(8px);
+  padding: 0 !important;
+}
+
 .code-highlight {
   @apply float-left min-w-full;
 }
 
 .code-line {
   @apply -mx-4 block border-l-4 border-transparent pr-4 pl-4;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .code-line.inserted {

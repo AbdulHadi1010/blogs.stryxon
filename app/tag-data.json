@@ -1,7 +1,11 @@
 {
+  "linux": 1,
+  "ubuntu": 1,
+  "automation": 3,
+  "clawdbot": 3,
+  "moltbot": 3,
+  "tutorial": 3,
   "macos": 1,
-  "automation": 1,
-  "clawdbot": 1,
-  "moltbot": 1,
-  "tutorial": 1
+  "windows": 1,
+  "powershell": 1
 }

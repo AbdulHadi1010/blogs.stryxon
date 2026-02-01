@@ -75,6 +75,14 @@ module.exports = () => {
           protocol: 'https',
           hostname: 'picsum.photos',
         },
+        {
+          protocol: 'https',
+          hostname: 'www.qnap.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'www.geo.tv',
+        },
       ],
       unoptimized,
     },

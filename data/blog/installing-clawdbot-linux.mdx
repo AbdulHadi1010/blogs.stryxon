@@ -1,0 +1,410 @@
+---
+title: How to Install ClawdBot (Moltbot) on Linux
+date: 2026-02-01
+tags:
+  - linux
+  - ubuntu
+  - automation
+  - clawdbot
+  - moltbot
+  - tutorial
+draft: false
+summary: A comprehensive step-by-step guide to installing and setting up ClawdBot (Moltbot) on Linux distributions including Ubuntu, Debian, Fedora, and Arch Linux. Learn how to install dependencies, configure the bot, and troubleshoot common issues.
+authors:
+  - default
+images: ['https://www.qnap.com/uploads/images/how-to/202601/6e4ad0f409ebf77360146f1b814f5466.png']
+canonicalUrl: https://blog.stryxon.com/blog/installing-clawdbot-linux
+---
+
+# How to Install ClawdBot (Moltbot) on Linux
+
+ClawdBot (also known as Moltbot) is a powerful automation bot that helps streamline your workflow on Linux. This comprehensive guide covers installation on popular Linux distributions including Ubuntu, Debian, Fedora, and Arch Linux.
+
+## Prerequisites
+
+Before installing ClawdBot, ensure your system meets the following requirements:
+
+- Linux distribution (Ubuntu 20.04+, Debian 10+, Fedora 35+, or Arch Linux)
+- Python 3.8 or higher
+- Package manager (apt, dnf, or pacman)
+- At least 2GB of free disk space
+- Sudo/root access for system-wide installation
+
+## Step 1: Update Your System
+
+First, update your package lists and upgrade existing packages.
+
+**Ubuntu/Debian:**
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+**Fedora:**
+```bash
+sudo dnf update -y
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -Syu
+```
+
+## Step 2: Install Python 3 and Dependencies
+
+Most modern Linux distributions come with Python 3 pre-installed. Verify your Python version:
+
+```bash
+python3 --version
+```
+
+If Python 3.8+ is not installed, install it:
+
+**Ubuntu/Debian:**
+```bash
+sudo apt install python3 python3-pip python3-venv git curl wget -y
+```
+
+**Fedora:**
+```bash
+sudo dnf install python3 python3-pip git curl wget -y
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S python python-pip git curl wget
+```
+
+## Step 3: Install Build Dependencies
+
+ClawdBot may require compilation tools for some Python packages:
+
+**Ubuntu/Debian:**
+```bash
+sudo apt install build-essential libssl-dev libffi-dev python3-dev -y
+```
+
+**Fedora:**
+```bash
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install openssl-devel libffi-devel python3-devel -y
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S base-devel openssl libffi
+```
+
+## Step 4: Clone the ClawdBot Repository
+
+Navigate to your preferred installation directory and clone the repository:
+
+```bash
+cd ~/Documents
+git clone https://github.com/clawdbot/moltbot.git
+cd moltbot
+```
+
+> Note: Replace the repository URL with the actual ClawdBot/Moltbot repository if different.
+
+<Image 
+  src="/static/images/clawdbot-git-clone.jpg" 
+  alt="Cloning ClawdBot repository" 
+  width={800} 
+  height={400}
+  className="rounded-lg shadow-lg"
+/>
+
+## Step 5: Create a Virtual Environment
+
+It's best practice to use a virtual environment for Python projects:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Your terminal prompt should now show `(venv)` indicating the virtual environment is active.
+
+## Step 6: Install ClawdBot
+
+With the virtual environment activated, install ClawdBot and its dependencies:
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+If ClawdBot is available on PyPI, you can alternatively install it directly:
+
+```bash
+pip install clawdbot
+```
+
+## Step 7: Configure ClawdBot
+
+Create a configuration directory and copy the example configuration:
+
+```bash
+mkdir -p ~/.config/clawdbot
+cp config.example.yml ~/.config/clawdbot/config.yml
+```
+
+Edit the configuration file with your preferred text editor:
+
+```bash
+nano ~/.config/clawdbot/config.yml
+# or use vim, emacs, or any editor you prefer
+```
+
+Update the following settings:
+- API keys (if required)
+- Bot preferences
+- Automation triggers
+- Notification settings
+- Log file locations
+
+## Step 8: Verify Installation
+
+Test that ClawdBot is properly installed:
+
+```bash
+clawdbot --version
+```
+
+Run a test command to ensure everything works:
+
+```bash
+clawdbot test
+```
+
+## Step 9: Set Up Systemd Service (Optional)
+
+To have ClawdBot start automatically on boot and run as a system service, create a systemd service file:
+
+```bash
+sudo nano /etc/systemd/system/clawdbot.service
+```
+
+Add the following content (adjust paths as needed):
+
+```ini
+[Unit]
+Description=ClawdBot Automation Service
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME
+WorkingDirectory=/home/YOUR_USERNAME/Documents/moltbot
+ExecStart=/home/YOUR_USERNAME/Documents/moltbot/venv/bin/python -m clawdbot start
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable clawdbot
+sudo systemctl start clawdbot
+```
+
+Check the service status:
+
+```bash
+sudo systemctl status clawdbot
+```
+
+## Step 10: Configure Firewall (If Needed)
+
+If ClawdBot requires network access, configure your firewall:
+
+**UFW (Ubuntu/Debian):**
+```bash
+sudo ufw allow 8080/tcp
+sudo ufw reload
+```
+
+**Firewalld (Fedora):**
+```bash
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+```
+
+## Troubleshooting
+
+### Issue: Permission Denied Errors
+
+If you encounter permission errors:
+
+```bash
+sudo chown -R $USER:$USER ~/Documents/moltbot
+chmod -R 755 ~/Documents/moltbot
+```
+
+### Issue: Python Module Not Found
+
+If you see "ModuleNotFoundError", ensure your virtual environment is activated:
+
+```bash
+source ~/Documents/moltbot/venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Issue: SSL Certificate Errors
+
+If you encounter SSL errors, update your certificates:
+
+```bash
+pip install --upgrade certifi
+```
+
+For Ubuntu/Debian:
+```bash
+sudo apt install ca-certificates
+sudo update-ca-certificates
+```
+
+### Issue: Port Already in Use
+
+If the default port is in use, modify the configuration:
+
+```bash
+nano ~/.config/clawdbot/config.yml
+# Change port: 8080 to another port like 8081
+```
+
+### Issue: Systemd Service Fails
+
+Check the service logs:
+
+```bash
+sudo journalctl -u clawdbot -f
+```
+
+Ensure the paths in the service file are correct and the user has permissions.
+
+### Issue: Dependencies Conflict
+
+If you have dependency conflicts, create a fresh virtual environment:
+
+```bash
+deactivate
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Updating ClawdBot
+
+To update ClawdBot to the latest version:
+
+```bash
+cd ~/Documents/moltbot
+source venv/bin/activate
+git pull origin main
+pip install --upgrade -r requirements.txt
+```
+
+If using systemd, restart the service:
+
+```bash
+sudo systemctl restart clawdbot
+```
+
+## Uninstalling ClawdBot
+
+If you need to uninstall ClawdBot:
+
+1. Stop and disable the systemd service (if configured):
+```bash
+sudo systemctl stop clawdbot
+sudo systemctl disable clawdbot
+sudo rm /etc/systemd/system/clawdbot.service
+sudo systemctl daemon-reload
+```
+
+2. Deactivate and remove the virtual environment:
+```bash
+deactivate
+rm -rf ~/Documents/moltbot
+```
+
+3. Remove configuration files:
+```bash
+rm -rf ~/.config/clawdbot
+```
+
+4. (Optional) Remove Python and dependencies if not needed:
+```bash
+# Ubuntu/Debian
+sudo apt remove python3-venv python3-pip
+# Fedora
+sudo dnf remove python3-pip
+```
+
+## Distribution-Specific Notes
+
+### Ubuntu/Debian Specific
+
+- Use `apt` for package management
+- Configuration typically stored in `~/.config/`
+- Logs usually in `/var/log/` or `~/.local/share/`
+
+### Fedora Specific
+
+- Use `dnf` for package management
+- SELinux may require additional configuration
+- Use `sudo setsebool -P httpd_can_network_connect 1` if network issues occur
+
+### Arch Linux Specific
+
+- Use `pacman` for package management
+- AUR may have ClawdBot package: `yay -S clawdbot`
+- Keep system updated: `sudo pacman -Syu` regularly
+
+## Advanced Configuration
+
+### Running ClawdBot with Docker
+
+If you prefer containerization:
+
+```bash
+docker pull clawdbot/moltbot:latest
+docker run -d --name clawdbot \
+  -v ~/.config/clawdbot:/config \
+  -p 8080:8080 \
+  clawdbot/moltbot:latest
+```
+
+### Running Behind Nginx Reverse Proxy
+
+Create an Nginx configuration:
+
+```nginx
+server {
+    listen 80;
+    server_name bot.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## Conclusion
+
+You now have ClawdBot (Moltbot) successfully installed and configured on your Linux system. The bot is ready to automate your workflows and boost your productivity.
+
+For advanced features, custom integrations, and troubleshooting, check out:
+- Official documentation at [docs.clawdbot.io](https://docs.clawdbot.io)
+- Community forum for support
+- GitHub Issues for bug reports
+
+Happy automating on Linux!
