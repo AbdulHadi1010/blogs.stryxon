@@ -1,0 +1,23 @@
+# Modern browser support for optimal performance
+# Reduces bundle size by ~11KB
+
+# Chrome 90+ (April 2021)
+Chrome >= 90
+
+# Firefox 88+ (April 2021)
+Firefox >= 88
+
+# Safari 14+ (September 2020)
+Safari >= 14
+
+# Edge 90+ (April 2021)
+Edge >= 90
+
+# Exclude dead browsers
+not dead
+
+# Exclude IE
+not IE 11
+
+# Exclude Opera Mini
+not op_mini all

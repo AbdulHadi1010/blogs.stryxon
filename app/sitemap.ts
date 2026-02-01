@@ -12,12 +12,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod || post.date,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     }))
 
-  const routes = ['', 'blog', 'projects', 'tags'].map((route) => ({
-    url: `${siteUrl}/${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
+  const routes = [
+    {
+      url: `${siteUrl}/`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
+    },
+    {
+      url: `${siteUrl}/blog`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/projects`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/tags`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/about`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+  ]
 
   return [...routes, ...blogRoutes]
 }

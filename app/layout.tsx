@@ -5,6 +5,8 @@ import 'remark-github-blockquote-alert/alert.css'
 import { Space_Grotesk } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
@@ -25,6 +27,20 @@ export const metadata: Metadata = {
     template: `%s | ${siteMetadata.title}`,
   },
   description: siteMetadata.description,
+  keywords: [
+    'web development blog',
+    'cloud infrastructure tutorials',
+    'AI engineering insights',
+    'DevOps best practices',
+    'Next.js tutorials',
+    'software development tips',
+    'automation tutorials',
+    'Linux guides',
+    'Windows tutorials',
+  ],
+  authors: [{ name: 'Stryxon' }],
+  creator: 'Stryxon',
+  publisher: 'Stryxon',
   openGraph: {
     title: siteMetadata.title,
     description: siteMetadata.description,
@@ -37,7 +53,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
     types: {
-      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
+      'application/rss+xml': `${siteMetadata.siteUrl}/api/feed`,
     },
   },
   robots: {
@@ -55,6 +71,14 @@ export const metadata: Metadata = {
     title: siteMetadata.title,
     card: 'summary_large_image',
     images: [siteMetadata.socialBanner],
+  },
+  verification: {
+    // Add your verification codes after setting up in search consoles
+    // google: 'YOUR_GOOGLE_VERIFICATION_CODE',
+    // other: {
+    //   'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
+    //   'yandex-verification': 'YOUR_YANDEX_CODE',
+    // },
   },
 }
 
@@ -98,16 +122,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white"
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
+        >
+          Skip to main content
+        </a>
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
               <Header />
-              <main className="mb-auto">{children}</main>
+              <main id="main-content" className="mb-auto" tabIndex={-1}>
+                {children}
+              </main>
             </SearchProvider>
             <Footer />
           </SectionContainer>
         </ThemeProviders>
+        <VercelAnalytics />
+        <SpeedInsights />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Blog',
+              name: siteMetadata.title,
+              description: siteMetadata.description,
+              url: siteMetadata.siteUrl,
+              publisher: {
+                '@type': 'Organization',
+                name: 'Stryxon',
+                url: 'https://www.stryxon.com',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: `${siteMetadata.siteUrl}/static/images/logo.png`,
+                },
+              },
+            }),
+          }}
+        />
       </body>
     </html>
   )

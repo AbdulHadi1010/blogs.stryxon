@@ -96,13 +96,41 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     return coreContent(authorResults as Authors)
   })
   const mainContent = { ...coreContent(post), images: post.images }
-  const jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
-    return {
+
+  // Enhanced BlogPosting schema
+  const imageList = post.images
+    ? typeof post.images === 'string'
+      ? [post.images]
+      : post.images
+    : [siteMetadata.socialBanner]
+
+  const blogPostingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary,
+    image: imageList.map((img) => (img && img.includes('http') ? img : siteMetadata.siteUrl + img)),
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.lastmod || post.date).toISOString(),
+    author: authorDetails.map((author) => ({
       '@type': 'Person',
       name: author.name,
-    }
-  })
+    })),
+    publisher: {
+      '@type': 'Organization',
+      name: siteMetadata.title,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteMetadata.siteUrl}/static/favicons/android-chrome-192x192.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteMetadata.siteUrl}/${post.path}`,
+    },
+    keywords: post.tags?.join(', '),
+    url: `${siteMetadata.siteUrl}/${post.path}`,
+  }
 
   const Layout = layouts[post.layout || defaultLayout]
 
@@ -110,7 +138,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
       />
       <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
