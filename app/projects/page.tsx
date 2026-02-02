@@ -5,6 +5,30 @@ import { genPageMetadata } from 'app/seo'
 export const metadata = genPageMetadata({ title: 'Projects' })
 
 export default function Projects() {
+  // Group projects by category
+  const projectsByCategory = projectsData.reduce(
+    (acc, project) => {
+      const category = project.category || 'Other'
+      if (!acc[category]) {
+        acc[category] = []
+      }
+      acc[category].push(project)
+      return acc
+    },
+    {} as Record<string, typeof projectsData>
+  )
+
+  // Define category order
+  const categoryOrder = [
+    'AI Automation & Agents',
+    'AI Engineering & RAG',
+    'Cloud & DevOps',
+    'Containerization & Kubernetes',
+    'Cloudera & Big Data',
+    'Web Application Development',
+    'Mobile App Development',
+  ]
+
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -13,20 +37,37 @@ export default function Projects() {
             Projects
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Showcase your projects with a hero image (16 x 9)
+            A showcase of my professional work in AI, Cloud Infrastructure, DevOps, and Application
+            Development
           </p>
         </div>
         <div className="container py-12">
-          <div className="-m-4 flex flex-wrap">
-            {projectsData.map((d) => (
-              <Card
-                key={d.title}
-                title={d.title}
-                description={d.description}
-                imgSrc={d.imgSrc}
-                href={d.href}
-              />
-            ))}
+          <div className="space-y-16">
+            {categoryOrder.map((category) => {
+              const projects = projectsByCategory[category]
+              if (!projects || projects.length === 0) return null
+
+              return (
+                <div key={category}>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-8 pb-2 border-b-2 border-primary-500">
+                    {category}
+                  </h2>
+                  <div className="-m-4 flex flex-wrap">
+                    {projects.map((d) => (
+                      <Card
+                        key={d.title}
+                        title={d.title}
+                        description={d.description}
+                        imgSrc={d.imgSrc}
+                        href={d.href}
+                        tags={d.tags}
+                        category={d.category}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

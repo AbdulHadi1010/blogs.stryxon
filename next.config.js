@@ -89,6 +89,10 @@ module.exports = () => {
           protocol: 'https',
           hostname: 'www.geo.tv',
         },
+        {
+          protocol: 'https',
+          hostname: 'images.unsplash.com',
+        },
       ],
       unoptimized,
     },

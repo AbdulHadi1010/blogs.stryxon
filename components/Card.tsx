@@ -1,12 +1,22 @@
 import Image from './Image'
 import Link from './Link'
+import Tag from './Tag'
 
-const Card = ({ title, description, imgSrc, href }) => (
+interface CardProps {
+  title: string
+  description: string
+  imgSrc?: string
+  href?: string
+  tags?: string[]
+  category?: string
+}
+
+const Card = ({ title, description, imgSrc, href, tags, category }: CardProps) => (
   <div className="md max-w-[544px] p-4 md:w-1/2">
     <div
       className={`${
         imgSrc && 'h-full'
-      } overflow-hidden rounded-md border-2 border-gray-200/60 dark:border-gray-700/60`}
+      } flex h-full flex-col overflow-hidden rounded-md border-2 border-gray-200/60 dark:border-gray-700/60`}
     >
       {imgSrc &&
         (href ? (
@@ -28,7 +38,14 @@ const Card = ({ title, description, imgSrc, href }) => (
             height={306}
           />
         ))}
-      <div className="p-6">
+      <div className="flex flex-grow flex-col p-6">
+        {category && (
+          <div className="mb-2">
+            <span className="text-primary-500 dark:text-primary-400 text-xs font-medium tracking-wide uppercase">
+              {category}
+            </span>
+          </div>
+        )}
         <h2 className="mb-3 text-2xl leading-8 font-bold tracking-tight">
           {href ? (
             <Link href={href} aria-label={`Link to ${title}`}>
@@ -38,7 +55,16 @@ const Card = ({ title, description, imgSrc, href }) => (
             title
           )}
         </h2>
-        <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">{description}</p>
+        <p className="prose mb-3 max-w-none flex-grow text-gray-500 dark:text-gray-400">
+          {description}
+        </p>
+        {tags && tags.length > 0 && (
+          <div className="mb-3 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <Tag key={tag} text={tag} />
+            ))}
+          </div>
+        )}
         {href && (
           <Link
             href={href}
