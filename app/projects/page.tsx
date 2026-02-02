@@ -49,7 +49,7 @@ export default function Projects() {
 
               return (
                 <div key={category}>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-8 pb-2 border-b-2 border-primary-500">
+                  <h2 className="border-primary-500 mb-8 border-b-2 pb-2 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
                     {category}
                   </h2>
                   <div className="-m-4 flex flex-wrap">
