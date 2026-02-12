@@ -38,16 +38,19 @@ Before installing ClawdBot, ensure your system meets the following requirements:
 First, update your package lists and upgrade existing packages.
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
 **Fedora:**
+
 ```bash
 sudo dnf update -y
 ```
 
 **Arch Linux:**
+
 ```bash
 sudo pacman -Syu
 ```
@@ -63,16 +66,19 @@ python3 --version
 If Python 3.8+ is not installed, install it:
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt install python3 python3-pip python3-venv git curl wget -y
 ```
 
 **Fedora:**
+
 ```bash
 sudo dnf install python3 python3-pip git curl wget -y
 ```
 
 **Arch Linux:**
+
 ```bash
 sudo pacman -S python python-pip git curl wget
 ```
@@ -82,17 +88,20 @@ sudo pacman -S python python-pip git curl wget
 ClawdBot may require compilation tools for some Python packages:
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt install build-essential libssl-dev libffi-dev python3-dev -y
 ```
 
 **Fedora:**
+
 ```bash
 sudo dnf groupinstall "Development Tools" -y
 sudo dnf install openssl-devel libffi-devel python3-devel -y
 ```
 
 **Arch Linux:**
+
 ```bash
 sudo pacman -S base-devel openssl libffi
 ```
@@ -109,10 +118,10 @@ cd moltbot
 
 > Note: Replace the repository URL with the actual ClawdBot/Moltbot repository if different.
 
-<Image 
-  src="/static/images/clawdbot-git-clone.jpg" 
-  alt="Cloning ClawdBot repository" 
-  width={800} 
+<Image
+  src="/static/images/clawdbot-git-clone.jpg"
+  alt="Cloning ClawdBot repository"
+  width={800}
   height={400}
   className="rounded-lg shadow-lg"
 />
@@ -160,6 +169,7 @@ nano ~/.config/clawdbot/config.yml
 ```
 
 Update the following settings:
+
 - API keys (if required)
 - Bot preferences
 - Automation triggers
@@ -226,12 +236,14 @@ sudo systemctl status clawdbot
 If ClawdBot requires network access, configure your firewall:
 
 **UFW (Ubuntu/Debian):**
+
 ```bash
 sudo ufw allow 8080/tcp
 sudo ufw reload
 ```
 
 **Firewalld (Fedora):**
+
 ```bash
 sudo firewall-cmd --permanent --add-port=8080/tcp
 sudo firewall-cmd --reload
@@ -266,6 +278,7 @@ pip install --upgrade certifi
 ```
 
 For Ubuntu/Debian:
+
 ```bash
 sudo apt install ca-certificates
 sudo update-ca-certificates
@@ -324,6 +337,7 @@ sudo systemctl restart clawdbot
 If you need to uninstall ClawdBot:
 
 1. Stop and disable the systemd service (if configured):
+
 ```bash
 sudo systemctl stop clawdbot
 sudo systemctl disable clawdbot
@@ -332,17 +346,20 @@ sudo systemctl daemon-reload
 ```
 
 2. Deactivate and remove the virtual environment:
+
 ```bash
 deactivate
 rm -rf ~/Documents/moltbot
 ```
 
 3. Remove configuration files:
+
 ```bash
 rm -rf ~/.config/clawdbot
 ```
 
 4. (Optional) Remove Python and dependencies if not needed:
+
 ```bash
 # Ubuntu/Debian
 sudo apt remove python3-venv python3-pip
@@ -406,6 +423,7 @@ server {
 You now have ClawdBot (Moltbot) successfully installed and configured on your Linux system. The bot is ready to automate your workflows and boost your productivity.
 
 For advanced features, custom integrations, and troubleshooting, check out:
+
 - Official documentation at [docs.clawdbot.io](https://docs.clawdbot.io)
 - Community forum for support
 - GitHub Issues for bug reports

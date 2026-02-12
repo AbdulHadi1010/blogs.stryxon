@@ -124,6 +124,7 @@ nano ~/.clawdbot/config.yml
 ```
 
 Update the following settings:
+
 - API keys (if required)
 - Bot preferences
 - Automation triggers
@@ -236,17 +237,20 @@ pip install --upgrade -r requirements.txt
 If you need to uninstall ClawdBot:
 
 1. Deactivate and remove the virtual environment:
+
 ```bash
 deactivate
 rm -rf ~/Documents/moltbot
 ```
 
 2. Remove configuration files:
+
 ```bash
 rm -rf ~/.clawdbot
 ```
 
 3. Remove the launch agent (if configured):
+
 ```bash
 launchctl unload ~/Library/LaunchAgents/com.clawdbot.plist
 rm ~/Library/LaunchAgents/com.clawdbot.plist

@@ -43,13 +43,14 @@ Download and install Python from the official website:
 3. Run the installer
 
 **Important:** During installation, make sure to check:
+
 - ✅ **"Add Python to PATH"** (very important!)
 - ✅ **"Install pip"**
 
-<Image 
-  src="/static/images/python-windows-install.jpg" 
-  alt="Python Windows installation with PATH option" 
-  width={800} 
+<Image
+  src="/static/images/python-windows-install.jpg"
+  alt="Python Windows installation with PATH option"
+  width={800}
   height={500}
   className="rounded-lg shadow-lg"
 />
@@ -123,10 +124,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Your prompt should now show `(venv)` indicating the virtual environment is active.
 
-<Image 
-  src="/static/images/powershell-venv.jpg" 
-  alt="PowerShell with activated virtual environment" 
-  width={800} 
+<Image
+  src="/static/images/powershell-venv.jpg"
+  alt="PowerShell with activated virtual environment"
+  width={800}
   height={400}
   className="rounded-lg shadow-lg"
 />
@@ -162,6 +163,7 @@ notepad "$HOME\.clawdbot\config.yml"
 ```
 
 Update the following settings:
+
 - API keys (if required)
 - Bot preferences and automation rules
 - Notification settings
@@ -294,6 +296,7 @@ pip install -r requirements.txt
 ### Issue: Permission Denied
 
 Run PowerShell as Administrator:
+
 1. Right-click PowerShell icon
 2. Select "Run as Administrator"
 3. Navigate to your ClawdBot directory and retry
@@ -315,6 +318,7 @@ Restart your computer for changes to take effect.
 Some antivirus software may flag Python scripts. Add an exception:
 
 **Windows Defender:**
+
 1. Open Windows Security
 2. Go to "Virus & threat protection"
 3. Click "Manage settings"
@@ -350,21 +354,25 @@ If using Task Scheduler, the scheduled task will automatically use the updated v
 If you need to uninstall ClawdBot:
 
 1. Stop any running ClawdBot processes:
+
 ```powershell
 Get-Process python | Where-Object {$_.Path -like "*moltbot*"} | Stop-Process
 ```
 
 2. Remove the scheduled task:
+
 ```powershell
 Unregister-ScheduledTask -TaskName "ClawdBot" -Confirm:$false
 ```
 
 3. Remove the installation directory:
+
 ```powershell
 Remove-Item -Recurse -Force "$HOME\Documents\moltbot"
 ```
 
 4. Remove configuration files:
+
 ```powershell
 Remove-Item -Recurse -Force "$HOME\.clawdbot"
 ```
@@ -428,11 +436,13 @@ For a better experience, consider using Windows Terminal:
 
 1. Install from Microsoft Store
 2. Configure PowerShell profile:
+
 ```powershell
 notepad $PROFILE
 ```
 
 3. Add ClawdBot alias:
+
 ```powershell
 function Start-ClawdBot {
     cd "$HOME\Documents\moltbot"
@@ -447,6 +457,7 @@ Set-Alias clawdbot Start-ClawdBot
 You now have ClawdBot (Moltbot) successfully installed and configured on your Windows system. The bot is set to start automatically on login and will help automate your daily workflows.
 
 For further assistance:
+
 - Official documentation: [docs.clawdbot.io](https://docs.clawdbot.io)
 - Windows-specific issues: GitHub Issues
 - Community support: Discord server
