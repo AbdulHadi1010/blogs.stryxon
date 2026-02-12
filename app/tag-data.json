@@ -1,11 +1,22 @@
 {
+  "performance": 1,
+  "nextjs": 1,
+  "seo": 1,
+  "accessibility": 1,
+  "web-vitals": 1,
+  "optimization": 1,
   "linux": 1,
   "ubuntu": 1,
   "automation": 3,
   "clawdbot": 3,
   "moltbot": 3,
+  "openclaw": 3,
   "tutorial": 3,
   "macos": 1,
   "windows": 1,
-  "powershell": 1
+  "powershell": 1,
+  "artificial-intelligence": 1,
+  "machine-learning": 1,
+  "emerging-technologies": 1,
+  "multimodal-learning": 1
 }

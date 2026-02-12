@@ -1,11 +1,19 @@
 ---
 title: 'The Complete Guide to Achieving 90+ PageSpeed Scores: A Real-World Case Study'
 date: '2026-02-01'
-tags: ['performance', 'nextjs', 'seo', 'accessibility', 'web-vitals', 'optimization']
+tags:
+  - performance
+  - nextjs
+  - seo
+  - accessibility
+  - web-vitals
+  - optimization
 draft: false
 summary: 'Learn how we optimized our Next.js website from 65 to 90+ on PageSpeed Insights. Step-by-step guide covering accessibility, performance, SEO, and security optimizations.'
-images: ['/static/images/nextjs-seo.png']
-authors: ['default']
+images:
+  - '/static/images/nextjs-seo.png'
+authors:
+  - default
 ---
 
 ## Introduction
@@ -27,6 +35,8 @@ Over the next few days, we systematically addressed each issue. The result? A co
 - 🟢 **SEO**: 100
 
 In this comprehensive guide, I'll walk you through every optimization we made, why it matters, and how you can implement these changes on your own website. Whether you're using Next.js, React, or any other framework, these principles apply universally.
+
+<StickyMobileCTA title="Want guaranteed 90+ scores? We can optimize your site." buttonText="Get Expert Help" href="/services" />
 
 ## Understanding Core Web Vitals
 
@@ -486,10 +496,7 @@ export default function RootLayout({ children }) {
     name: 'Stryxon Technologies',
     url: 'https://www.stryxon.com',
     logo: 'https://www.stryxon.com/images/logo.png',
-    sameAs: [
-      'https://twitter.com/stryxon',
-      'https://linkedin.com/company/stryxon',
-    ],
+    sameAs: ['https://twitter.com/stryxon', 'https://linkedin.com/company/stryxon'],
   }
 
   return (
@@ -561,8 +568,7 @@ export const metadata = {
     default: 'Stryxon Technologies - Web Development & Cloud Infrastructure',
     template: '%s | Stryxon Technologies',
   },
-  description:
-    'Professional web development and cloud infrastructure services...',
+  description: 'Professional web development and cloud infrastructure services...',
   openGraph: {
     type: 'website',
     locale: 'en_US',

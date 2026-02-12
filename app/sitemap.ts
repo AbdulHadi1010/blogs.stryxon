@@ -30,6 +30,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${siteUrl}/services`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/services/openclaw-setup`,
+      lastModified: new Date().toISOString().split('T')[0],
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
       url: `${siteUrl}/projects`,
       lastModified: new Date().toISOString().split('T')[0],
       changeFrequency: 'monthly' as const,
