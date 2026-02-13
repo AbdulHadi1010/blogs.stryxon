@@ -7,6 +7,7 @@ import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
 import ServiceCallout from './ServiceCallout'
 import StickyMobileCTA from './StickyMobileCTA'
+import MainSiteCTA from './MainSiteCTA'
 
 export const components: MDXComponents = {
   Image,
@@ -17,4 +18,5 @@ export const components: MDXComponents = {
   BlogNewsletterForm,
   ServiceCallout,
   StickyMobileCTA,
+  MainSiteCTA,
 }
