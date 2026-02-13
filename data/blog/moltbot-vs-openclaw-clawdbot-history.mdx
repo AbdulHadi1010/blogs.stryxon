@@ -1,0 +1,189 @@
+---
+title: 'Moltbot vs. OpenClaw: Why Did Clawdbot Change Its Name?'
+date: '2026-02-13'
+tags:
+  - openclaw
+  - clawdbot
+  - moltbot
+  - automation
+  - ai-agents
+  - tutorial
+draft: false
+summary: 'Confused by Clawdbot, Moltbot, and OpenClaw? Learn why the popular AI agent rebranded twice in 8 months, and how to avoid fake packages during the transition.'
+images:
+  - https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&auto=format&fit=crop
+authors:
+  - default
+---
+
+If you've searched for "Clawdbot installation" lately, you've probably seen three different names: **Clawdbot**, **Moltbot**, and **OpenClaw**. Are they different tools? Malware variants? Forks?
+
+The short answer: **They're all the same AI agent**. The name changed twice due to trademark disputes and security concerns. Here's the full story.
+
+<MainSiteCTA service="openclaw" />
+
+## The Original Name: Clawdbot (June 2025 – December 2025)
+
+Clawdbot launched in June 2025 as an open-source AI automation agent. The name was a playful reference to Claude (Anthropic's AI assistant) + "bot", emphasizing its ability to execute terminal commands autonomously.
+
+By December 2025, Clawdbot had:
+- 15,000+ GitHub stars
+- Installation guides for [Linux](/blog/installing-clawdbot-linux), [macOS](/blog/installing-clawdbot-macos), and [Windows](/blog/installing-clawdbot-windows)
+- A thriving community of AI automation enthusiasts
+
+**Then Anthropic's legal team got involved.**
+
+## The First Rebrand: Moltbot (January 2026)
+
+In early January 2026, Anthropic sent a cease-and-desist letter to the Clawdbot maintainers. The issue? The name "Clawdbot" was too similar to "Claude" and violated their trademark.
+
+The maintainers scrambled to rebrand. On January 8, 2026, they announced the new name: **Moltbot**.
+
+Why "Moltbot"? The name referenced molting—the process of shedding old skin for new growth. It was meant to symbolize the project's evolution beyond its Claude origins.
+
+### The Moltbot Chaos (January 8 – February 8, 2026)
+
+The rebrand created immediate problems:
+
+1. **SEO Rankings Collapsed**: All Clawdbot tutorials and documentation pointed to old repos. Google searches returned outdated results.
+
+2. **Package Name Confusion**: NPM packages, Docker images, and PyPI releases still used "clawdbot" internally. Users didn't know which version to install.
+
+3. **Malware Surge**: Opportunistic attackers registered:
+   - `moltbot-pro` (fake NPM package with 8,000 downloads)
+   - `clawdbot-installer.exe` (Windows malware disguised as the legacy tool)
+   - `moltbot-setup` Chrome extension (credential stealer)
+
+By late January 2026, the Moltbot subreddit had 300+ posts asking: *"Is Moltbot safe? How do I know I'm installing the real version?"*
+
+## The Final Name: OpenClaw (February 2026 – Present)
+
+On February 8, 2026, the maintainers made a decisive move: **rebrand to OpenClaw** and establish clear security guidelines.
+
+### Why "OpenClaw"?
+
+- **Open**: Emphasizes the open-source nature (unlike proprietary Claude)
+- **Claw**: Keeps the original "Claw" reference without trademark issues
+- **Clear Branding**: The "Open" prefix (like OpenAI, OpenSSH) signals legitimacy
+
+### What Changed with OpenClaw?
+
+1. **Official Repository**: All code consolidated at `github.com/openclaw/openclaw`
+2. **Verified Packages**: 
+   - NPM: `@openclaw/cli`
+   - Docker: `openclaw/agent`
+   - PyPI: `openclaw`
+3. **Security Checksums**: Every release includes SHA-256 hashes
+4. **Domain Authority**: Official site at `openclaw.dev` (not `.com` or `.io`)
+
+## Timeline: The Three Names
+
+| Date | Name | Status | Notes |
+|------|------|--------|-------|
+| June 2025 | **Clawdbot** | Deprecated | Original name, now redirects to OpenClaw |
+| Jan 8, 2026 | **Moltbot** | Deprecated | Temporary rebrand, caused malware surge |
+| Feb 8, 2026 | **OpenClaw** | **Active** | Current official name |
+
+## How to Verify You Have the Real OpenClaw
+
+During the transition, fake packages proliferated. Here's how to verify authenticity:
+
+### ✅ Official Packages
+
+```bash
+# NPM (JavaScript/TypeScript)
+npm install @openclaw/cli
+
+# PyPI (Python)
+pip install openclaw
+
+# Docker
+docker pull openclaw/agent:latest
+
+# GitHub
+git clone https://github.com/openclaw/openclaw.git
+```
+
+### ❌ Fake Packages to Avoid
+
+- `clawdbot-pro`
+- `moltbot-installer`
+- `openclaw-setup.exe` (OpenClaw doesn't distribute `.exe` files)
+- Any package not from `@openclaw` scope on NPM
+
+### Verify Checksums
+
+Always check release hashes:
+
+```bash
+# Download the official release
+wget https://github.com/openclaw/openclaw/releases/download/v2.1.0/openclaw-linux.tar.gz
+
+# Verify SHA-256 checksum
+sha256sum openclaw-linux.tar.gz
+# Should match hash on release page
+```
+
+## What Happens to Old "Clawdbot" Installations?
+
+If you installed Clawdbot before February 2026, it still works—but:
+
+1. **No Security Updates**: The `clawdbot` package is archived and won't receive patches
+2. **Breaking Changes**: Future AI model providers may drop support for legacy versions
+3. **Community Support Ends**: All documentation now references OpenClaw
+
+### Migration Command
+
+Upgrade from Clawdbot/Moltbot to OpenClaw:
+
+```bash
+# Uninstall old versions
+npm uninstall -g clawdbot moltbot
+
+# Install OpenClaw
+npm install -g @openclaw/cli
+
+# Migrate config (preserves API keys)
+openclaw migrate --from-clawdbot
+```
+
+Your existing `.clawdbot` config directory will be renamed to `.openclaw`, and all settings will transfer automatically.
+
+<MainSiteCTA service="openclaw" />
+
+## Why the Rebrand Matters for Users
+
+Beyond the name confusion, this transition highlights a critical issue in the AI agent ecosystem: **supply chain security**.
+
+When a popular tool rebrands, bad actors exploit the chaos:
+- Fake packages with typosquatted names
+- Malicious browser extensions claiming to be "official installers"
+- Phishing sites that look identical to the real documentation
+
+**The OpenClaw rebrand included security-first measures:**
+- GPG-signed releases
+- Verified Docker images (official Docker Hub org)
+- NPM package scope (`@openclaw/`) prevents typosquatting
+- HTTPS-only documentation with valid SSL certificates
+
+## Summary: Clawdbot = Moltbot = OpenClaw
+
+- **Clawdbot** (June 2025 – Dec 2025): Original name, forced to rebrand due to Anthropic trademark
+- **Moltbot** (Jan 2026 – Feb 2026): Temporary name, caused malware surge and user confusion
+- **OpenClaw** (Feb 2026 – Present): Final name with clear security guidelines
+
+If you see any installation guides referencing "Clawdbot" or "Moltbot," they're outdated. Always install from:
+- Official GitHub: `github.com/openclaw/openclaw`
+- NPM scope: `@openclaw/cli`
+- Docker Hub: `openclaw/agent`
+
+For a secure, professionally managed OpenClaw setup, check our [installation guides](/blog/installing-clawdbot-linux) or get a [turnkey hosted solution](https://www.stryxon.com/services/openclaw-setup).
+
+---
+
+## Related Articles
+
+- [How to Install OpenClaw on Linux](/blog/installing-clawdbot-linux)
+- [How to Install OpenClaw on macOS](/blog/installing-clawdbot-macos)
+- [How to Install OpenClaw on Windows](/blog/installing-clawdbot-windows)
+- [How to Secure Your OpenClaw AI Agent from Malware](/blog/secure-openclaw-ai-agent-malware)
