@@ -86,12 +86,17 @@ const MobileNav = () => {
                   href="https://stryxon.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-[#004AAD] hover:bg-[#003580] text-white font-bold rounded-lg transition-all duration-200 shadow-md"
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#004AAD] px-6 py-3 font-bold text-white shadow-md transition-all duration-200 hover:bg-[#003580]"
                   onClick={onToggleNav}
                 >
                   Hire Stryxon
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
                   </svg>
                 </a>
               </nav>
