@@ -14,35 +14,35 @@ const serviceConfigs = {
     description:
       'Skip the terminal complexity and security risks. We install, configure, and host your secure AI agent with zero malware risk.',
     buttonText: 'Get Secure Setup →',
-    href: 'https://www.stryxon.com/services/openclaw-setup',
+    href: 'https://stryxon.com/services/openclaw-setup',
   },
   pagespeed: {
     title: 'Want 90+ PageSpeed Scores?',
     description:
       'Our experts optimize images, implement lazy loading, and tune Core Web Vitals for maximum performance.',
     buttonText: 'Get PageSpeed Audit →',
-    href: 'https://www.stryxon.com/services/pagespeed-optimization',
+    href: 'https://stryxon.com/services/pagespeed-optimization',
   },
   devops: {
     title: 'Need DevOps Infrastructure?',
     description:
       'From CI/CD pipelines to cloud architecture, we build scalable systems that grow with your business.',
     buttonText: 'View DevOps Services →',
-    href: 'https://www.stryxon.com/services/devops-consulting',
+    href: 'https://stryxon.com/services/devops-consulting',
   },
   nextjs: {
     title: 'Building a Next.js Application?',
     description:
       'Our team builds production-ready Next.js apps with best practices, TypeScript, and modern tooling.',
     buttonText: 'Start Your Project →',
-    href: 'https://www.stryxon.com/services/nextjs-development',
+    href: 'https://stryxon.com/services/nextjs-development',
   },
   custom: {
     title: 'Need Custom Development?',
     description:
       'From MVPs to enterprise applications, we deliver high-quality software solutions.',
     buttonText: 'Get a Quote →',
-    href: 'https://www.stryxon.com/contact',
+    href: 'https://stryxon.com/contact',
   },
 }
 
